@@ -23,6 +23,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -101,6 +102,7 @@ fun TorchButton(context: Context) {
     /* Whether the torch is currently turned on */
     var isTorchOn by remember { mutableStateOf(false) }
 
+    // Instantiate the Camera Manager and get the ID of the first camera with flash available
     val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
     val cameraId = remember {
         cameraManager.cameraIdList.firstOrNull { id ->
@@ -110,12 +112,26 @@ fun TorchButton(context: Context) {
         }
     }
 
+    // Turn the torch on or off
     LaunchedEffect(isTorchOn) {
         if (cameraId != null) {
             try {
                 cameraManager.setTorchMode(cameraId, isTorchOn)
             } catch (e: Exception) {
                 e.printStackTrace()
+            }
+        }
+    }
+
+    // Cleanup the torch when leaving the screen
+    DisposableEffect(Unit) {
+        onDispose {
+            if (cameraId != null) {
+                try {
+                    cameraManager.setTorchMode(cameraId, false)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }
