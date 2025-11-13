@@ -80,6 +80,17 @@ fun RulerScreen(navController: NavController) {
                                 )
                             }
 
+                            // Half Centimeter Ticks
+                            mm % 5 == 0 -> {
+                                drawLine(
+                                    color = tickColor.copy(alpha = 0.85f),
+                                    start = Offset(rulerRight - (cmMarkWidth / 2), y),
+                                    end = Offset(rulerRight, y),
+                                    strokeWidth = 3f,
+                                    cap = StrokeCap.Round
+                                )
+                            }
+
                             // Millimeter Tick
                             else -> {
                                 drawLine(
