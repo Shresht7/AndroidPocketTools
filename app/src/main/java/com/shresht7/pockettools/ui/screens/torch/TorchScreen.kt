@@ -1,12 +1,18 @@
 package com.shresht7.pockettools.ui.screens.torch
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
+import android.hardware.camera2.CameraCharacteristics
+import android.hardware.camera2.CameraManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 
@@ -78,7 +85,7 @@ fun TorchScreen(navController: NavController) {
             contentAlignment = Alignment.Center,
         ) {
             if (hasCameraPermission) {
-                Text("Torch Screen")
+                TorchButton(context)
             } else {
                 Text(
                     text = "Camera permission required to use torch",
@@ -86,6 +93,49 @@ fun TorchScreen(navController: NavController) {
                 )
             }
         }
+    }
+}
+
+@Composable
+fun TorchButton(context: Context) {
+    /* Whether the torch is currently turned on */
+    var isTorchOn by remember { mutableStateOf(false) }
+
+    val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+    val cameraId = remember {
+        cameraManager.cameraIdList.firstOrNull { id ->
+            val characteristics = cameraManager.getCameraCharacteristics(id)
+            val hasFlash = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE) ?: false
+            hasFlash
+        }
+    }
+
+    LaunchedEffect(isTorchOn) {
+        if (cameraId != null) {
+            try {
+                cameraManager.setTorchMode(cameraId, isTorchOn)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+            .background(
+                color = if (isTorchOn) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
+                shape = CircleShape,
+            )
+            .clickable { isTorchOn = !isTorchOn },
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(
+            text = if (isTorchOn) "ON" else "OFF",
+            style = MaterialTheme.typography.headlineLarge,
+            color = if (isTorchOn) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
+        )
     }
 }
 
