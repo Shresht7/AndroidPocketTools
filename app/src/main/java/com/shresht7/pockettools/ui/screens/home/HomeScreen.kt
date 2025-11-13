@@ -39,6 +39,9 @@ fun HomeScreen(navController: NavController) {
             Button(onClick = { navController.navigate(Screen.Torch) }) {
                 Text("Torch")
             }
+            Button(onClick = { navController.navigate(Screen.Ruler) }) {
+                Text("Ruler")
+            }
         }
     }
 }
