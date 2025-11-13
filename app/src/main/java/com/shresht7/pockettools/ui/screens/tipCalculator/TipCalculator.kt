@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -43,7 +42,7 @@ import java.text.NumberFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TipCalculator(navController: NavController) {
+fun TipCalculatorScreen(navController: NavController) {
     var amount by remember { mutableFloatStateOf(100.0f) }
     var tipFraction by remember { mutableFloatStateOf(0.15f) }
     var roundUp by remember { mutableStateOf(false) }
@@ -137,6 +136,6 @@ internal fun calculateTotalAmount(amount: Float, tipFraction: Float, roundUp: Bo
 
 @Preview(showBackground = true)
 @Composable
-fun TipCalculatorPreview() {
-    TipCalculator(navController = NavController(LocalContext.current))
+fun TipCalculatorScreenPreview() {
+    TipCalculatorScreen(navController = NavController(LocalContext.current))
 }
