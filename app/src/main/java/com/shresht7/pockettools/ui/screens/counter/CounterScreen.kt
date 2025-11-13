@@ -1,5 +1,7 @@
 package com.shresht7.pockettools.ui.screens.counter
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
@@ -27,10 +29,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,6 +45,13 @@ import androidx.navigation.NavController
 @Composable
 fun CounterScreen(navController: NavController) {
     var count by remember { mutableIntStateOf(0) }
+    var pressed by remember { mutableStateOf(false) }
+    
+    val scale by animateFloatAsState(
+        targetValue = if (pressed) 0.9f else 1f,
+        animationSpec = spring(dampingRatio = 0.4f, stiffness = 300f),
+        label  = "scale"
+    )
 
     Scaffold(
         topBar = {
@@ -75,13 +86,27 @@ fun CounterScreen(navController: NavController) {
                         .padding(48.dp)
                         .aspectRatio(1.0f)
                         .fillMaxWidth()
+                        .scale(scale)
+                        // Tap Gesture: Increase Count
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onPress = {
+                                    pressed = true
+                                    tryAwaitRelease()
+                                    pressed = false
+                                },
+                                onTap = { count++ }
+                            )
+                        }
+                        // Swipe Up Gesture: Reduce Count
                         .pointerInput(Unit) {
                             detectVerticalDragGestures { _, dragAmount ->
-                                if (dragAmount < -100) count--   // Swipe Up Gesture: Reduce Count
+                                if (dragAmount < -100) {
+                                    pressed = true
+                                    count--
+                                    pressed = false
+                                }
                             }
-                        }
-                        .pointerInput(Unit) {
-                            detectTapGestures { count++ } // Tap Gesture: Increase Count
                         }
                 ) {
                     Column(
@@ -89,7 +114,10 @@ fun CounterScreen(navController: NavController) {
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
-                        Text(text = "$count", style = MaterialTheme.typography.headlineLarge)
+                        Text(
+                            text = "$count",
+                            style = MaterialTheme.typography.headlineLarge
+                        )
                     }
                 }
                 Spacer(modifier = Modifier.height(32.dp))
