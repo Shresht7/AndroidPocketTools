@@ -1,4 +1,4 @@
-package com.shresht7.pockettools.ui.theme.screens.counter
+package com.shresht7.pockettools.ui.screens.counter
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -78,7 +77,7 @@ fun CounterScreen(navController: NavController) {
                         .fillMaxWidth()
                         .pointerInput(Unit) {
                             detectVerticalDragGestures { _, dragAmount ->
-                                if (dragAmount < -20) count--   // Swipe Up Gesture: Reduce Count
+                                if (dragAmount < -100) count--   // Swipe Up Gesture: Reduce Count
                             }
                         }
                         .pointerInput(Unit) {

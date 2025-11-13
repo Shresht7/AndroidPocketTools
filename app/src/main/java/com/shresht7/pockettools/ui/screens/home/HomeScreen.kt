@@ -1,4 +1,4 @@
-package com.shresht7.pockettools.ui.theme.screens.home
+package com.shresht7.pockettools.ui.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

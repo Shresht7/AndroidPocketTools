@@ -5,8 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.createGraph
-import com.shresht7.pockettools.ui.theme.screens.counter.CounterScreen
-import com.shresht7.pockettools.ui.theme.screens.home.HomeScreen
+import com.shresht7.pockettools.ui.screens.counter.CounterScreen
+import com.shresht7.pockettools.ui.screens.home.HomeScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
