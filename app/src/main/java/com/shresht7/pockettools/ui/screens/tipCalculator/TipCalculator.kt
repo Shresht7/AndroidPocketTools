@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -26,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -72,7 +74,7 @@ fun TipCalculator(navController: NavController) {
                 onValueChange = { value: String -> amount = value.toFloatOrNull() ?: 0.0f },
                 label = { Text("Amount") },
                 singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next)
             )
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -82,6 +84,7 @@ fun TipCalculator(navController: NavController) {
                 value = (tipFraction * 100).toString(),
                 onValueChange = { value: String -> tipFraction = value.toFloatOrNull()?.coerceIn(0.0f, 1.0f) ?: 0.0f },
                 label = { Text("Tip Percentage") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done )
             )
         }
     }
