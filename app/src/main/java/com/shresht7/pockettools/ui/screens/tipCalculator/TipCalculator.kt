@@ -70,7 +70,7 @@ fun TipCalculator(navController: NavController) {
 
             // Amount Text Input
             TextField(
-                value = amount.toString(),
+                value = String.format("%.2f", amount),
                 onValueChange = { value: String -> amount = value.toFloatOrNull() ?: 0.0f },
                 label = { Text("Amount") },
                 singleLine = true,
@@ -81,7 +81,7 @@ fun TipCalculator(navController: NavController) {
 
             // Tip Percentage Input
             TextField(
-                value = (tipFraction * 100).toString(),
+                value = String.format("%.2f", tipFraction * 100),
                 onValueChange = { value: String -> tipFraction = value.toFloatOrNull()?.coerceIn(0.0f, 1.0f) ?: 0.0f },
                 label = { Text("Tip Percentage") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done )
