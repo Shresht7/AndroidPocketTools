@@ -106,7 +106,7 @@ fun TorchButton(context: Context) {
     var isTorchOn by remember { mutableStateOf(false) }
 
     /* The torch brightness level */
-    var brightness by remember { mutableFloatStateOf(0.5f) } // 0 = dim, 1 = bright
+    var brightness by remember { mutableFloatStateOf(0f) } // 0 = dim, 1 = bright
 
     // Instantiate the Camera Manager and get the ID of the first camera with flash available
     val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
@@ -148,7 +148,14 @@ fun TorchButton(context: Context) {
             .aspectRatio(1.0f)
             .pointerInput(Unit) {
                 detectVerticalDragGestures { _, dragAmount ->
+                    val oldBrightness = brightness
                     brightness = (brightness - dragAmount / 1000f).coerceIn(0.0f, 1.0f)
+                    // Auto-toggle based on brightness crossing thresholds
+                    if (oldBrightness > 0f && brightness == 0f) {
+                        isTorchOn = false
+                    } else if (oldBrightness == 0f && brightness > 0f) {
+                        isTorchOn = true
+                    }
                 }
             },
         contentAlignment = Alignment.Center,
