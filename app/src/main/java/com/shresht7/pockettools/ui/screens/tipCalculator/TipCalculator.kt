@@ -83,7 +83,8 @@ fun TipCalculator(navController: NavController) {
                 onValueChange = { value: String -> amount = value.toFloatOrNull() ?: 0.0f },
                 label = { Text("Amount") },
                 singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next)
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
+                leadingIcon = { Text("$") },
             )
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -93,7 +94,8 @@ fun TipCalculator(navController: NavController) {
                 value = String.format("%.2f", tipFraction * 100),
                 onValueChange = { value: String -> tipFraction = value.toFloatOrNull()?.coerceIn(0.0f, 1.0f) ?: 0.0f },
                 label = { Text("Tip Percentage") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done )
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done ),
+                leadingIcon = { Text("%") }
             )
 
             Row(
