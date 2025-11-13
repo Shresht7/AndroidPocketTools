@@ -63,7 +63,7 @@ fun SensorsListScreen(navController: NavController) {
                 .padding(horizontal = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                items(sensors) { sensor -> Text(sensor.name) }
+                items(sensors) { sensor -> SensorCard(sensor) }
             }
         }
     }
