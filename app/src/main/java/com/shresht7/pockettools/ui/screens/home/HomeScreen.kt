@@ -30,6 +30,8 @@ fun HomeScreen(navController: NavController) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            // TODO: Make this look aesthetic and add a search field at the top or the bottom
+
             Button(onClick = { navController.navigate(Screen.Counter) }) {
                 Text("Counter")
             }
@@ -44,6 +46,9 @@ fun HomeScreen(navController: NavController) {
             }
             Button(onClick = { navController.navigate(Screen.SensorsList) }) {
                 Text("SensorsList")
+            }
+            Button(onClick = { navController.navigate(Screen.Magnetometer) }) {
+                Text("Magnetometer")
             }
         }
     }
