@@ -1,10 +1,15 @@
 package com.shresht7.pockettools.ui.screens.magnetometer
 
+import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -73,4 +78,19 @@ class MagnetometerViewModel(
         sensorManager.unregisterListener(this)
     }
 
+}
+
+class MagnetometerVMFactory(
+    private val context: Context
+): ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        return MagnetometerViewModel(sensorManager) as T
+    }
+}
+
+@Composable
+fun createMagnetometerViewModel(): MagnetometerViewModel {
+    val context = LocalContext.current
+    return viewModel(factory = MagnetometerVMFactory(context))
 }
