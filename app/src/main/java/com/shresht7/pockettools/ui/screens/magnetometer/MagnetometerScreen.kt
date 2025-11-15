@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.shresht7.pockettools.ui.components.WaveformGraph
 import com.shresht7.pockettools.ui.screens.torch.BrightnessIndicator
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -100,41 +101,4 @@ fun MagnetometerUI(
 
         WaveformGraph(state.waveform)
     }
-}
-
-@Composable
-fun WaveformGraph(values: List<Float>) {
-    val max = values.maxOrNull() ?: 1f
-    val min = values.minOrNull() ?: 0f
-
-    Canvas(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(100.dp)
-    ) {
-        if (values.size < 2) return@Canvas
-
-        val step = size.width / (values.size - 1)
-
-        for (i in 1 until values.size) {
-            val y1 = size.height - (values[i - 1] - min) / (max - min) * size.height
-            val y2 = size.height - (values[i] - min) / (max - min) * size.height
-
-            drawLine(
-                color = Color.Cyan,
-                start = Offset((i - 1) * step, y1),
-                end = Offset(i * step, y2),
-                strokeWidth = 3f
-            )
-        }
-    }
-}
-
-@Preview()
-@Composable
-fun WaveformGraphPreview() {
-    val values = List(150) {
-        (10..100).random().toFloat()
-    }
-    WaveformGraph(values)
 }
