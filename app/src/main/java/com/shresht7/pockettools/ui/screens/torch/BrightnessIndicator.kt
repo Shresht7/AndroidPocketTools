@@ -6,6 +6,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import kotlin.math.cos
 import kotlin.math.sin
@@ -18,9 +19,9 @@ fun BrightnessIndicator(
     center: Offset? = null,
     steps: Int = 5,
     dotsPerCircle: Int = 60,
+    color: Color = MaterialTheme.colorScheme.primary,
     modifier: Modifier = Modifier,
 ) {
-    val color = MaterialTheme.colorScheme.primary
     Canvas(modifier) {
         val center = center ?: Offset(size.width / 2, size.height / 2)
         val buttonRadius = (size.minDimension / 2f) * innerRadiusFactor
