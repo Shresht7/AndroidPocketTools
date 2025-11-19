@@ -15,21 +15,21 @@ import com.shresht7.pockettools.ui.screens.torch.TorchScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class Screen(val route: String) {
+sealed class Screen(val route: String, val title: String) {
     @Serializable
-    data object Home: Screen("home")
+    data object Home: Screen("home", "Home")
     @Serializable
-    data object Counter: Screen("counter")
+    data object Counter: Screen("counter", "Counter")
     @Serializable
-    data object TipCalculator: Screen("tipCalculator")
+    data object TipCalculator: Screen("tipCalculator", "Tip Calculator")
     @Serializable
-    data object Torch: Screen("torch")
+    data object Torch: Screen("torch", "Torch")
     @Serializable
-    data object Ruler: Screen("ruler")
+    data object Ruler: Screen("ruler", "Ruler")
     @Serializable
-    data object SensorsList: Screen("sensorsList")
+    data object SensorsList: Screen("sensorsList", "Sensors List")
     @Serializable
-    data object Magnetometer: Screen("Magnetometer")
+    data object Magnetometer: Screen("magnetometer", "Magnetometer")
 }
 
 @Composable
