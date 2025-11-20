@@ -1,13 +1,13 @@
 package com.shresht7.pockettools.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.CompassCalibration
-import androidx.compose.material.icons.filled.FlashlightOn
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Payment
-import androidx.compose.material.icons.filled.Sensors
-import androidx.compose.material.icons.filled.Straight
+import androidx.compose.material.icons.outlined.CompassCalibration
+import androidx.compose.material.icons.outlined.FlashlightOn
+import androidx.compose.material.icons.outlined.Numbers
+import androidx.compose.material.icons.outlined.Payment
+import androidx.compose.material.icons.outlined.Sensors
+import androidx.compose.material.icons.outlined.Straighten
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
@@ -43,12 +43,12 @@ sealed class Screen(val route: String, val title: String) {
     val Screen.icon: ImageVector
         get() = when (this) {
             Home -> Icons.Default.Home
-            Counter -> Icons.Default.Add
-            Magnetometer -> Icons.Default.CompassCalibration
-            Ruler -> Icons.Default.Straight
-            SensorsList -> Icons.Default.Sensors
-            TipCalculator -> Icons.Default.Payment
-            Torch -> Icons.Default.FlashlightOn
+            Counter -> Icons.Outlined.Numbers
+            Magnetometer -> Icons.Outlined.CompassCalibration
+            Ruler -> Icons.Outlined.Straighten
+            SensorsList -> Icons.Outlined.Sensors
+            TipCalculator -> Icons.Outlined.Payment
+            Torch -> Icons.Outlined.FlashlightOn
         }
 }
 
