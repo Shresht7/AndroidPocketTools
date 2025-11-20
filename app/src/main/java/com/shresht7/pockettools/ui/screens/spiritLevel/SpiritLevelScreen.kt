@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -53,6 +55,15 @@ fun SpiritLevelScreen(navController: NavController) {
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
+
+            HorizontalSpiritLevel(
+                orientation,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
+                    .align(Alignment.TopCenter)
+            )
+
             VerticalSpiritLevel(
                 orientation,
                 modifier = Modifier
@@ -70,6 +81,37 @@ fun SpiritLevelScreen(navController: NavController) {
 
 fun mapTiltToOffset(angle: Float, maxOffset: Float): Float {
     return (angle / 45f).coerceIn(-1f, 1f) * maxOffset
+}
+
+@Composable
+fun HorizontalSpiritLevel(orientation: Orientation, modifier: Modifier) {
+    val primaryColor = MaterialTheme.colorScheme.primary
+    Canvas(modifier) {
+        val barWidth = size.width * 0.9f
+        val barHeight = 20.dp.toPx()
+
+        val centerX = size.width / 2
+        val centerY = size.height / 2
+
+        val maxOffset = barWidth * 0.45f
+        val bubbleX = centerX + mapTiltToOffset(orientation.roll, maxOffset)
+        val bubbleRadius = 14.dp.toPx()
+
+        // Bar
+        drawRoundRect(
+            color = Color(0xF444444),
+            topLeft = Offset(centerX - barWidth / 2, centerY - barHeight / 2),
+            size = Size(barWidth, barHeight),
+            cornerRadius = CornerRadius(50f, 50f)
+        )
+
+        // Bubble
+        drawCircle(
+            color = primaryColor,
+            radius = bubbleRadius,
+            center = Offset(bubbleX, centerY)
+        )
+    }
 }
 
 @Composable
