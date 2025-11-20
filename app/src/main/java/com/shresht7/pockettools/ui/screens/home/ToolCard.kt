@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ToolCard(
     onClick: () -> Unit,
-    borderStroke: BorderStroke = BorderStroke(2.dp, MaterialTheme.colorScheme.primary),
+    borderStroke: BorderStroke = BorderStroke(2.dp, MaterialTheme.colorScheme.outline),
     shape: Shape = MaterialTheme.shapes.medium,
     content: @Composable () -> Unit,
 ) {
