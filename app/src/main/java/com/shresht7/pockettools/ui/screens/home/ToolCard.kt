@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Sensors
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
@@ -47,17 +48,16 @@ fun ToolCard(
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
 
-    val scale = animateFloatAsState(if (isPressed) 0.97f else 1f)
-    val elevation by animateDpAsState(if (isPressed) 0.dp else 6.dp)
+    val scale by animateFloatAsState(if (isPressed) 0.97f else 1f)
+    val elevation by animateDpAsState(if (isPressed) 0.dp else 1.dp)
 
     OutlinedCard(
         onClick = onClick,
         interactionSource = interactionSource,
         modifier = Modifier
             .graphicsLayer {
-                scaleX = scale.value
-                scaleY = scale.value
-                shadowElevation = elevation.toPx()
+                scaleX = scale
+                scaleY = scale
             }
             .fillMaxWidth()
             .padding(8.dp)
@@ -69,7 +69,13 @@ fun ToolCard(
             })
             .border(borderStroke, shape),
     ) {
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer {
+                    shadowElevation = elevation.toPx()
+                }
+        ) {
 
             // Background Icon
             if (imageVector != null) {
