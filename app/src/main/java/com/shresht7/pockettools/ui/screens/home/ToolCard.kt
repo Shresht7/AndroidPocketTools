@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.dp
 fun ToolCard(
     onClick: () -> Unit,
     imageVector: ImageVector? = null,
-    borderStroke: BorderStroke = BorderStroke(2.dp, MaterialTheme.colorScheme.outlineVariant),
+    borderStroke: BorderStroke = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
     shape: Shape = MaterialTheme.shapes.medium,
     content: @Composable () -> Unit,
 ) {
