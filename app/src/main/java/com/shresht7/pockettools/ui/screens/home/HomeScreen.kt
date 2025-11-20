@@ -54,7 +54,7 @@ fun HomeScreen(navController: NavController) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
     HomeScreen(navController = NavController(LocalContext.current))
