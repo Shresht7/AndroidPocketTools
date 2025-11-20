@@ -64,7 +64,7 @@ fun HomeScreen(navController: NavController) {
                     Text(
                         text = screen.title,
                         modifier = Modifier.padding(16.dp),
-                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                        fontSize = MaterialTheme.typography.titleMedium.fontSize,
                     )
                 }
             }

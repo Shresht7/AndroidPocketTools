@@ -2,6 +2,7 @@ package com.shresht7.pockettools.ui.screens.home
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
@@ -26,6 +27,7 @@ fun ToolCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
+            .aspectRatio(1.6f)
             .border(borderStroke, shape),
     ) {
         content()
