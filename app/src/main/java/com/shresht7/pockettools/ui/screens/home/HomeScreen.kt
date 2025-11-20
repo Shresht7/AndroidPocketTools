@@ -82,57 +82,70 @@ fun HomeScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-
-            // Search Field
-            TextField(
-                value = query,
-                onValueChange = { query = it },
-                placeholder = { Text("Search...") },
-                leadingIcon = { Icon(Icons.Default.Search, contentDescription = "") },
-                modifier = Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth()
-            )
+            SearchField(query, onQueryChange = { query = it })
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                verticalArrangement = Arrangement.spacedBy(1.dp),
-                horizontalArrangement = Arrangement.spacedBy(1.dp),
-            ) {
-                items(filtered) { screen ->
-                    val index = screens.indexOf(screen)
-                    val delay = index * 80
+            ToolBox(filtered, screens, navController, started)
+        }
+    }
+}
 
-                    val alpha by animateFloatAsState(
-                        targetValue = if (started) 1f else 0f,
-                        animationSpec = tween(durationMillis = 200, delayMillis = delay)
-                    )
+@Composable
+fun SearchField(query: String, onQueryChange: (String) -> Unit) {
+    TextField(
+        value = query,
+        onValueChange = onQueryChange,
+        placeholder = { Text("Search...") },
+        leadingIcon = { Icon(Icons.Default.Search, contentDescription = "") },
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+    )
+}
 
-                    val offsetY by animateDpAsState(
-                        targetValue = if (started) 0.dp else 20.dp,
-                        animationSpec = tween(durationMillis = 200, delayMillis = delay)
-                    )
+    @Composable
+fun ToolBox(
+    filtered: List<Screen>,
+    screens: List<Screen>,
+    navController: NavController,
+    started: Boolean
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        verticalArrangement = Arrangement.spacedBy(1.dp),
+        horizontalArrangement = Arrangement.spacedBy(1.dp),
+    ) {
+        items(filtered) { screen ->
+            val index = screens.indexOf(screen)
+            val delay = index * 80
 
-                    Box(
-                        modifier = Modifier
-                            .graphicsLayer {
-                                this.alpha = alpha
-                                translationY = offsetY.toPx()
-                            }
-                    ) {
-                        ToolCard(
-                            imageVector = screen.icon,
-                            onClick = { navController.navigate(screen) }
-                        ) {
-                            Text(
-                                text = screen.title,
-                                modifier = Modifier.padding(16.dp),
-                                fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                            )
-                        }
+            val alpha by animateFloatAsState(
+                targetValue = if (started) 1f else 0f,
+                animationSpec = tween(durationMillis = 200, delayMillis = delay)
+            )
+
+            val offsetY by animateDpAsState(
+                targetValue = if (started) 0.dp else 20.dp,
+                animationSpec = tween(durationMillis = 200, delayMillis = delay)
+            )
+
+            Box(
+                modifier = Modifier
+                    .graphicsLayer {
+                        this.alpha = alpha
+                        translationY = offsetY.toPx()
                     }
+            ) {
+                ToolCard(
+                    imageVector = screen.icon,
+                    onClick = { navController.navigate(screen) }
+                ) {
+                    Text(
+                        text = screen.title,
+                        modifier = Modifier.padding(16.dp),
+                        fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                    )
                 }
             }
         }
