@@ -56,7 +56,7 @@ fun HomeScreen(navController: NavController) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(24.dp, 48.dp, 24.dp, 24.dp),
+                    .padding(24.dp, 64.dp, 24.dp, 24.dp),
                 contentAlignment = Alignment.Center,
             ) {
                 Text("Pocket Tools", fontSize = MaterialTheme.typography.titleLarge.fontSize)
