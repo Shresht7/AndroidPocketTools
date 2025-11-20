@@ -1,6 +1,15 @@
 package com.shresht7.pockettools.navigation
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CompassCalibration
+import androidx.compose.material.icons.filled.FlashlightOn
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Payment
+import androidx.compose.material.icons.filled.Sensors
+import androidx.compose.material.icons.filled.Straight
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -30,6 +39,17 @@ sealed class Screen(val route: String, val title: String) {
     data object SensorsList: Screen("sensorsList", "Sensors List")
     @Serializable
     data object Magnetometer: Screen("magnetometer", "Magnetometer")
+
+    val Screen.icon: ImageVector
+        get() = when (this) {
+            Home -> Icons.Default.Home
+            Counter -> Icons.Default.Add
+            Magnetometer -> Icons.Default.CompassCalibration
+            Ruler -> Icons.Default.Straight
+            SensorsList -> Icons.Default.Sensors
+            TipCalculator -> Icons.Default.Payment
+            Torch -> Icons.Default.FlashlightOn
+        }
 }
 
 @Composable

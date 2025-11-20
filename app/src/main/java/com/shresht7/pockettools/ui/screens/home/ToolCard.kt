@@ -2,42 +2,85 @@ package com.shresht7.pockettools.ui.screens.home
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Sensors
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun ToolCard(
     onClick: () -> Unit,
+    imageVector: ImageVector? = null,
     borderStroke: BorderStroke = BorderStroke(2.dp, MaterialTheme.colorScheme.outline),
     shape: Shape = MaterialTheme.shapes.medium,
     content: @Composable () -> Unit,
 ) {
+    var cardWidth by remember { mutableFloatStateOf(0f) }
+    var cardHeight by remember { mutableFloatStateOf(0f) }
+
     OutlinedCard(
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
             .aspectRatio(1.6f)
+            .onGloballyPositioned({ coordinates ->
+                val size = coordinates.size
+                cardWidth = size.width.toFloat()
+                cardHeight = size.height.toFloat()
+            })
             .border(borderStroke, shape),
     ) {
-        content()
+        Box(modifier = Modifier.fillMaxSize()) {
+
+            // Background Icon
+            if (imageVector != null) {
+                Icon(
+                    imageVector = imageVector,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.20f),
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(12.dp)
+                        .size((cardWidth * 0.6).dp)
+                        .offset(
+                            x = (cardWidth * 0.125f).dp,
+                            y = (cardHeight * 0.125f).dp,
+                        )
+                )
+            }
+
+            content()
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun ToolCardPreview() {
-    ToolCard(onClick = {}) {
+    ToolCard(imageVector = Icons.Default.Sensors, onClick = {}) {
         Text(
             text = "Counter",
             modifier = Modifier
