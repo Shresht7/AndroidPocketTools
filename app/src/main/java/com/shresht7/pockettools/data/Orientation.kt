@@ -51,14 +51,30 @@ fun rememberOrientation(): Orientation {
             override fun onAccuracyChanged(p0: Sensor?, p1: Int) {}
         }
 
+        val magnetometerListener = object : SensorEventListener {
+            override fun onSensorChanged(event: SensorEvent) {
+                magnetometer[0] = event.values[0]
+                magnetometer[1] = event.values[1]
+                magnetometer[2] = event.values[2]
+                update()
+            }
+            override fun onAccuracyChanged(p0: Sensor?, p1: Int) {}
+        }
+
         sensorManager.registerListener(
             accelerationListener,
             sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
             SensorManager.SENSOR_DELAY_GAME,
         )
+        sensorManager.registerListener(
+            magnetometerListener,
+            sensorManager.getDefaultSensor((Sensor.TYPE_MAGNETIC_FIELD)),
+            SensorManager.SENSOR_DELAY_GAME
+        )
 
         onDispose {
             sensorManager.unregisterListener(accelerationListener)
+            sensorManager.unregisterListener(magnetometerListener)
         }
     }
 
