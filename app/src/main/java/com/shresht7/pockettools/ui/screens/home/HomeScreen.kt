@@ -5,16 +5,23 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -45,6 +52,9 @@ fun HomeScreen(navController: NavController) {
         Screen.SensorsList,
     )
 
+    var query by remember { mutableStateOf("") }
+    val filtered = screens.filter { it.title.contains(query, true) }
+
     var started by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
@@ -63,45 +73,65 @@ fun HomeScreen(navController: NavController) {
             }
         }
     ) { padding ->
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
+
+        Column(
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
                 .padding(8.dp),
-            verticalArrangement = Arrangement.spacedBy(1.dp),
-            horizontalArrangement = Arrangement.spacedBy(1.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
         ) {
-            items(screens) { screen ->
-                val index = screens.indexOf(screen)
-                val delay = index * 80
 
-                val alpha by animateFloatAsState(
-                    targetValue = if (started) 1f else 0f,
-                    animationSpec = tween(durationMillis = 200, delayMillis = delay)
-                )
+            // Search Field
+            TextField(
+                value = query,
+                onValueChange = { query = it },
+                placeholder = { Text("Search...") },
+                leadingIcon = { Icon(Icons.Default.Search, contentDescription = "") },
+                modifier = Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth()
+            )
 
-                val offsetY by animateDpAsState(
-                    targetValue = if (started) 0.dp else 20.dp,
-                    animationSpec = tween(durationMillis = 200, delayMillis = delay)
-                )
+            Spacer(modifier = Modifier.height(16.dp))
 
-                Box(
-                    modifier = Modifier
-                        .graphicsLayer {
-                            this.alpha = alpha
-                            translationY = offsetY.toPx()
-                        }
-                ) {
-                    ToolCard(
-                        imageVector = screen.icon,
-                        onClick = { navController.navigate(screen) }
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                verticalArrangement = Arrangement.spacedBy(1.dp),
+                horizontalArrangement = Arrangement.spacedBy(1.dp),
+            ) {
+                items(filtered) { screen ->
+                    val index = screens.indexOf(screen)
+                    val delay = index * 80
+
+                    val alpha by animateFloatAsState(
+                        targetValue = if (started) 1f else 0f,
+                        animationSpec = tween(durationMillis = 200, delayMillis = delay)
+                    )
+
+                    val offsetY by animateDpAsState(
+                        targetValue = if (started) 0.dp else 20.dp,
+                        animationSpec = tween(durationMillis = 200, delayMillis = delay)
+                    )
+
+                    Box(
+                        modifier = Modifier
+                            .graphicsLayer {
+                                this.alpha = alpha
+                                translationY = offsetY.toPx()
+                            }
                     ) {
-                        Text(
-                            text = screen.title,
-                            modifier = Modifier.padding(16.dp),
-                            fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                        )
+                        ToolCard(
+                            imageVector = screen.icon,
+                            onClick = { navController.navigate(screen) }
+                        ) {
+                            Text(
+                                text = screen.title,
+                                modifier = Modifier.padding(16.dp),
+                                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                            )
+                        }
                     }
                 }
             }
