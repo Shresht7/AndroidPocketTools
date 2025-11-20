@@ -54,8 +54,8 @@ fun HomeScreen(navController: NavController) {
                 .padding(padding)
                 .fillMaxSize()
                 .padding(8.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            verticalArrangement = Arrangement.spacedBy(1.dp),
+            horizontalArrangement = Arrangement.spacedBy(1.dp),
         ) {
             items(screens) { screen ->
                 ToolCard(
