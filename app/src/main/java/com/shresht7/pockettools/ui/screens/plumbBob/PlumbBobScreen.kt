@@ -20,11 +20,15 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.shresht7.pockettools.data.rememberUprightTilt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlumbBobScreen(navController: NavController) {
+    val tilt = rememberUprightTilt()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -43,7 +47,7 @@ fun PlumbBobScreen(navController: NavController) {
                 .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            PlumbBobUI(angle = 10f)
+            PlumbBobUI(angle = tilt)
         }
     }
 }
@@ -88,5 +92,14 @@ fun PlumbBobUI(
                 center = bobCenter
             )
         }
+
+        Text(
+            text = "%02.1f".format(angle),
+            color = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .padding(top = 48.dp),
+            fontSize = MaterialTheme.typography.headlineMedium.fontSize,
+        )
     }
 }
