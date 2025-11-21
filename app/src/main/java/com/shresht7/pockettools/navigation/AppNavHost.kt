@@ -15,6 +15,14 @@ import com.shresht7.pockettools.ui.screens.spiritLevel.SpiritLevelScreen
 import com.shresht7.pockettools.ui.screens.tipCalculator.TipCalculatorScreen
 import com.shresht7.pockettools.ui.screens.torch.TorchScreen
 
+/**
+ * Defines the navigation graph for the application.
+ *
+ * This composable sets up the routes to all the different screens (tools) in the app.
+ * It uses a type-safe navigation pattern with a `NavHost` and a separately created graph.
+ *
+ * @param navController The [NavHostController] that manages the navigation.
+ */
 @Composable
 fun AppNavHost(navController: NavHostController) {
     val graph = navController.createGraph(startDestination = Screen.Home) {
