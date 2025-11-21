@@ -20,10 +20,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.shresht7.pockettools.R
 import com.shresht7.pockettools.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -60,7 +61,7 @@ fun HomeScreen(onNavigateToTool: (Screen) -> Unit = {}) {
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
-                    text = "Pocket Tools",
+                    text = stringResource(R.string.app_name),
                     style = MaterialTheme.typography.titleLarge,
                 )
             }
