@@ -94,7 +94,7 @@ fun PlumbBobUI(
         }
 
         Text(
-            text = "%02.1f".format(angle),
+            text = "%02.1f°".format(angle),
             color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier
                 .align(Alignment.TopCenter)
