@@ -62,7 +62,7 @@ fun SpiritLevelScreen(navController: NavController) {
                     .align(Alignment.CenterEnd)
             )
 
-            SpiritLevel(orientation)
+            RadialSpiritLevel(orientation)
 
             Readouts(
                 orientation,

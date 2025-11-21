@@ -26,7 +26,7 @@ import com.shresht7.pockettools.sensor.Orientation
  * @param borderCircleStrokeWidthDp The stroke width of the outer border.
  */
 @Composable
-fun SpiritLevel(
+fun RadialSpiritLevel(
     orientation: Orientation,
     primaryColor: Color = MaterialTheme.colorScheme.primary,
     crosshairColor: Color = MaterialTheme.colorScheme.onSurface,
