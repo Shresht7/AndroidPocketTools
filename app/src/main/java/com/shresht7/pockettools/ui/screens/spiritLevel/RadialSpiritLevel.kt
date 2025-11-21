@@ -45,12 +45,8 @@ fun SpiritLevel(
         val crosshairStroke = crosshairStrokeDp.toPx()
         val maxOffset = size.minDimension / 3f
 
-        fun map(value: Float): Float {
-            return (value / 45f).coerceIn(-1f, 1f) * maxOffset
-        }
-
-        val bubbleX = size.center.x + map(orientation.roll)
-        val bubbleY = size.center.y + map(orientation.pitch)
+        val bubbleX = size.center.x + mapTiltToOffset(orientation.roll, maxOffset)
+        val bubbleY = size.center.y + mapTiltToOffset(orientation.pitch, maxOffset)
 
         // Background Circle
         drawCircle(
