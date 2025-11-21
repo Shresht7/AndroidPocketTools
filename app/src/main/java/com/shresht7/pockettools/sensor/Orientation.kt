@@ -48,7 +48,7 @@ fun rememberOrientation(): Orientation {
 
     /** Update the orientation values */
     fun update() {
-        // Calculate the rotation matrix
+        // Calculate the rotation matrix using both accelerometer and magnetometer data
         if (SensorManager.getRotationMatrix(rotationMatrix, null, acceleration, magnetometer)) {
             val values = FloatArray(3)
             SensorManager.getOrientation(rotationMatrix, values)

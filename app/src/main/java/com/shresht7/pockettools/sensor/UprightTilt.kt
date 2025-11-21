@@ -16,6 +16,24 @@ import kotlin.math.abs
 import kotlin.math.atan2
 
 
+/**
+ * A Composable function that provides the device's upright tilt angle.
+ *
+ * This function uses the [Sensor.TYPE_GRAVITY] to determine the angle
+ * of the device relative to the vertical axis (Z-axis). It's particularly
+ * useful for features like a plumb bob, where deviation from the vertical
+ * is important.
+ *
+ * The tilt angle is calculated using `atan2(gX, abs(gY))`. The use of `abs(gY)`
+ * means the angle primarily reflects the horizontal deviation from an upright
+ * position, making it suitable for representing a plumb bob's swing without
+ * distinguishing between forward and backward tilts.
+ *
+ * The sensor listener is registered when the composable enters the composition
+ * and unregistered when it leaves, ensuring efficient resource management.
+ *
+ * @return The current tilt angle in degrees, where 0 degrees means perfectly upright.
+ */
 @Composable
 fun rememberUprightTilt(): Float {
     val context = LocalContext.current
@@ -29,7 +47,11 @@ fun rememberUprightTilt(): Float {
             override fun onSensorChanged(event: SensorEvent) {
                 val gX = event.values[0]
                 val gY = event.values[1]
-//                val gZ = event.values[2]
+                // val gZ = event.values[2]
+
+                // Calculate tilt based on gravity components.
+                // Using abs(gY) ensures the tilt angle reflects horizontal deviation
+                // from upright, regardless of whether the device is tilted forwards or backwards.
                 tilt = Math.toDegrees(
                     atan2(gX, abs(gY)).toDouble()
                 ).toFloat()
