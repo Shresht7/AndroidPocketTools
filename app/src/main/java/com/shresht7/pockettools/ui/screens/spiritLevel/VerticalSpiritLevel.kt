@@ -1,6 +1,8 @@
 package com.shresht7.pockettools.ui.screens.spiritLevel
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -8,7 +10,6 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.layout
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -70,17 +71,8 @@ private fun VerticalSpiritLevelPreview() {
         VerticalSpiritLevel(
             pitch = -10f, // Example pitch angle
             modifier = Modifier
-                .layout { measurable, constraints ->
-                    val placeable = measurable.measure(
-                        constraints.copy(
-                            minWidth = 50.dp.toPx().toInt(),
-                            minHeight = 300.dp.toPx().toInt()
-                        )
-                    )
-                    layout(placeable.width, placeable.height) {
-                        placeable.placeRelative(0, 0)
-                    }
-                }
+                .width(50.dp)
+                .height(300.dp)
         )
     }
 }
