@@ -17,8 +17,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -45,8 +45,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -143,20 +147,41 @@ private fun getStrengthColor(rssi: Int): Color {
 }
 
 @Composable
-fun StrengthBar(
-    strength: Float, // Normalized 0.0f to 1.0f
-    color: Color,
-    modifier: Modifier = Modifier
-) {
+fun WifiStrengthIcon(rssi: Int, modifier: Modifier = Modifier) {
+    val color = getStrengthColor(rssi)
+    val bars = when {
+        rssi >= -55 -> 4
+        rssi >= -67 -> 3
+        rssi >= -80 -> 2
+        else -> 1
+    }
+    val baseAlpha = 0.3f
+
     Canvas(modifier = modifier) {
-        val barWidth = size.width * strength
-        drawRect(
-            color = color.copy(alpha = 0.3f),
-        )
-        drawRect(
+        val strokeWidth = size.width / 12
+        val center = Offset(size.width / 2, size.height)
+
+        // Draw base circle
+        drawCircle(
             color = color,
-            size = size.copy(width = barWidth)
+            radius = strokeWidth,
+            center = center
         )
+
+        // Draw arcs
+        for (i in 1..4) {
+            val radius = size.width * 0.2f * (i + 1)
+            val alpha = if (i <= bars) 1f else baseAlpha
+            drawArc(
+                color = color.copy(alpha = alpha),
+                startAngle = 225f,
+                sweepAngle = 90f,
+                useCenter = false,
+                topLeft = Offset(center.x - radius, center.y - radius),
+                size = Size(radius * 2, radius * 2),
+                style = Stroke(width = strokeWidth)
+            )
+        }
     }
 }
 
@@ -241,15 +266,14 @@ fun WifiStrengthContent(viewModel: WiFiViewModel) {
                             Text(
                                 text = result.SSID,
                                 style = MaterialTheme.typography.bodyLarge,
-                                modifier = Modifier.weight(1f)
+                                modifier = Modifier.weight(1f),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
                             )
                             Spacer(modifier = Modifier.width(8.dp))
-                            StrengthBar(
-                                strength = normalizeRssi(result.level),
-                                color = itemStrengthColor,
-                                modifier = Modifier
-                                    .width(80.dp)
-                                    .height(8.dp)
+                            WifiStrengthIcon(
+                                rssi = result.level,
+                                modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
