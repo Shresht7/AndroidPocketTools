@@ -1,7 +1,9 @@
 package com.shresht7.pockettools.ui.screens.wifi
 
+import android.net.wifi.ScanResult
+
 data class WiFiState(
-    val signalStrength: Int = 0,
-    val ssids: List<String> = emptyList(),
-    val selectedSsid: String? = null
+    val scanResults: List<ScanResult> = emptyList(),
+    val selectedSsid: String? = null,
+    val signalStrength: Int = 0, // This will be RSSI
 )
