@@ -119,7 +119,7 @@ fun WifiStrengthContent(viewModel: WiFiViewModel) {
     val state by viewModel.state.collectAsState()
     var expanded by remember { mutableStateOf(false) }
 
-    if (state.isScanning && state.scanResults.isEmpty()) {
+    if (state.isScanning) {
         CircularProgressIndicator()
     } else {
         Column(
