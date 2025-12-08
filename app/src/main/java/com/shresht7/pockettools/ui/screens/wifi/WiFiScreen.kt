@@ -153,7 +153,7 @@ fun WifiStrengthContent(viewModel: WiFiViewModel) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxSize(0.4f),
+                    .weight(1f),
                 contentAlignment = Alignment.Center
             ) {
                 RadialIntensityIndicator(
@@ -174,7 +174,8 @@ fun WifiStrengthContent(viewModel: WiFiViewModel) {
 
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
+                    .weight(1f)
                     .padding(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
