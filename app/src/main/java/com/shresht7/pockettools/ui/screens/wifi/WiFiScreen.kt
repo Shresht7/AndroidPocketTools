@@ -113,13 +113,13 @@ fun WiFiScreen(
                 },
                 title = { Text("WiFi Strength") },
                 actions = {
-                    IconButton(onClick = { showInfoDialog = true }) {
-                        Icon(Icons.Filled.Info, contentDescription = "Information")
-                    }
                     if (hasPermission) {
                         IconButton(onClick = { viewModel.triggerScan() }) {
                             Icon(Icons.Filled.Refresh, contentDescription = "Refresh")
                         }
+                    }
+                    IconButton(onClick = { showInfoDialog = true }) {
+                        Icon(Icons.Filled.Info, contentDescription = "Information")
                     }
                 }
             )
