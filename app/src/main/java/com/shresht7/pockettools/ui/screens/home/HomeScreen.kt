@@ -37,6 +37,7 @@ fun HomeScreen(onNavigateToTool: (Screen) -> Unit = {}) {
         Screen.Torch,
         Screen.WiFi,
         Screen.Magnetometer,
+        Screen.Sound,
         Screen.SpiritLevel,
         Screen.PlumbBob,
         Screen.Counter,
