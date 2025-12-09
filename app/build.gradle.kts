@@ -63,4 +63,5 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.compose.material.icons.extended)
+    implementation(libs.accompanist.permissions)
 }
