@@ -37,6 +37,7 @@ import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 import com.shresht7.pockettools.ui.components.RadialIntensityIndicator
+import com.shresht7.pockettools.ui.components.WaveformGraph
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class,
     ExperimentalPermissionsApi::class
@@ -106,7 +107,7 @@ fun SoundScreen(
 private fun DecibelMeterIndicator(amplitude: Int) {
     // The amplitude from AudioRecord is Short, max value is ~32767
     // We convert it to a 0f to 1f range for the Radial Indicator
-    val intensity = (amplitude / 32767f).coerceIn(0f, 1f)
+    val intensity = (amplitude / 32767f).coerceIn(0.1f, 1f)
 
     RadialIntensityIndicator(
         intensity = intensity,
