@@ -11,6 +11,7 @@ import com.shresht7.pockettools.ui.screens.magnetometer.MagnetometerScreen
 import com.shresht7.pockettools.ui.screens.plumbBob.PlumbBobScreen
 import com.shresht7.pockettools.ui.screens.ruler.RulerScreen
 import com.shresht7.pockettools.ui.screens.sensors.SensorsListScreen
+import com.shresht7.pockettools.ui.screens.sound.SoundScreen
 import com.shresht7.pockettools.ui.screens.spiritLevel.SpiritLevelScreen
 import com.shresht7.pockettools.ui.screens.tipCalculator.TipCalculatorScreen
 import com.shresht7.pockettools.ui.screens.torch.TorchScreen
@@ -37,6 +38,7 @@ fun AppNavHost(navController: NavHostController) {
         composable<Screen.PlumbBob> { PlumbBobScreen(onNavigateUp = { navController.popBackStack() }) }
         composable<Screen.SensorsList> { SensorsListScreen(onNavigateUp = { navController.popBackStack() }) }
         composable<Screen.WiFi> { WiFiScreen(onNavigateUp = { navController.popBackStack() }) }
+        composable<Screen.Sound> { SoundScreen(onNavigateUp = { navController.popBackStack() }) }
     }
     NavHost(
         navController = navController,
