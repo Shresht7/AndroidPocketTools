@@ -11,11 +11,11 @@ import com.shresht7.pockettools.navigation.AppNavHost
 import com.shresht7.pockettools.ui.theme.PocketToolsTheme
 
 /**
- * The main activity for the PocketTools application.
+ * The main activity and entry point for the PocketTools application.
  *
- * This activity serves as the main entry point and hosts the entire UI,
- * which is built using Jetpack Compose. It sets up the theme, enables edge-to-edge
- * display, and initializes the navigation structure with [AppNavHost].
+ * This activity hosts the entire UI, built with Jetpack Compose. It sets up the
+ * theme, enables edge-to-edge display, and initializes the navigation structure
+ * using [AppNavHost].
  */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,10 +23,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PocketToolsTheme {
-                Surface(color = MaterialTheme.colorScheme.background) {
-                    val navController = rememberNavController()
-                    AppNavHost(navController)
-                }
+                val navController = rememberNavController()
+                AppNavHost(navController)
             }
         }
     }
