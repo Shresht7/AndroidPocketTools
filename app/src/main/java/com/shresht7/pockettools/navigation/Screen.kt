@@ -1,6 +1,5 @@
 package com.shresht7.pockettools.navigation
 
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.outlined.Balance
@@ -13,47 +12,58 @@ import androidx.compose.material.icons.outlined.Sensors
 import androidx.compose.material.icons.outlined.Speaker
 import androidx.compose.material.icons.outlined.Straighten
 import androidx.compose.material.icons.outlined.Wifi
+import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
+/**
+ * A sealed class representing the screens in the application.
+ *
+ * Each screen is a singleton object that contains its route, title, and icon.
+ * This provides a type-safe way to manage navigation and screen metadata.
+ *
+ * @property route The navigation route for the screen.
+ * @property title The title of the screen, displayed in the UI.
+ * @property icon The icon representing the screen. This property is ignored during serialization.
+ */
 @Serializable
-sealed class Screen(val route: String, val title: String) {
+sealed class Screen(
+    val route: String,
+    val title: String,
+    @Transient val icon: ImageVector = Icons.Default.Home,
+) {
+    @Serializable
+    data object Home : Screen("home", "Home", Icons.Default.Home)
 
     @Serializable
-    data object Home: Screen("home", "Home")
-    @Serializable
-    data object Counter: Screen("counter", "Counter")
-    @Serializable
-    data object TipCalculator: Screen("tipCalculator", "Tip Calculator")
-    @Serializable
-    data object Torch: Screen("torch", "Torch")
-    @Serializable
-    data object Ruler: Screen("ruler", "Ruler")
-    @Serializable
-    data object SensorsList: Screen("sensorsList", "Sensors List")
-    @Serializable
-    data object Magnetometer: Screen("magnetometer", "Magnetometer")
-    @Serializable
-    data object SpiritLevel: Screen("spirit-level", "Spirit Level")
-    @Serializable
-    data object PlumbBob: Screen("plumb-bob", "Plumb Bob")
-    @Serializable
-    data object WiFi: Screen("wifi", "WiFi")
-    @Serializable
-    data object Sound: Screen("sound", "Sound")
+    data object Counter : Screen("counter", "Counter", Icons.Outlined.Numbers)
 
-    val Screen.icon: ImageVector
-        get() = when (this) {
-            Home -> Icons.Default.Home
-            Counter -> Icons.Outlined.Numbers
-            Magnetometer -> Icons.Outlined.CompassCalibration
-            Ruler -> Icons.Outlined.Straighten
-            SensorsList -> Icons.Outlined.Sensors
-            TipCalculator -> Icons.Outlined.Payment
-            Torch -> Icons.Outlined.FlashlightOn
-            SpiritLevel -> Icons.Outlined.Balance
-            PlumbBob -> Icons.Outlined.Circle
-            WiFi -> Icons.Outlined.Wifi
-            Sound -> Icons.Outlined.Speaker
-        }
+    @Serializable
+    data object TipCalculator : Screen("tipCalculator", "Tip Calculator", Icons.Outlined.Payment)
+
+    @Serializable
+    data object Torch : Screen("torch", "Torch", Icons.Outlined.FlashlightOn)
+
+    @Serializable
+    data object Ruler : Screen("ruler", "Ruler", Icons.Outlined.Straighten)
+
+    @Serializable
+    data object SensorsList : Screen("sensorsList", "Sensors List", Icons.Outlined.Sensors)
+
+    @Serializable
+    data object Magnetometer :
+        Screen("magnetometer", "Magnetometer", Icons.Outlined.CompassCalibration)
+
+    @Serializable
+    data object SpiritLevel : Screen("spirit-level", "Spirit Level", Icons.Outlined.Balance)
+
+    @Serializable
+    data object PlumbBob : Screen("plumb-bob", "Plumb Bob", Icons.Outlined.Circle)
+
+    @Serializable
+    data object WiFi : Screen("wifi", "WiFi", Icons.Outlined.Wifi)
+
+    @Serializable
+    data object Sound : Screen("sound", "Sound", Icons.Outlined.Speaker)
 }
 
