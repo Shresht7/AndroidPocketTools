@@ -4,14 +4,13 @@
 
 ![AppIcon](./app/src/assets/Icon.svg)
 
-</div>
 
 A collection of various tools and utilities for Android devices. 
 
-<div align="center">
-    <img src="./screenshots/Screenshot_PocketTools.png" width="30%" />
-    <img src="./screenshots/Screenshot_Magnetometer.png" width="30%" />
-    <img src="./screenshots/Screenshot_SpiritLevel.png" width="30%" />
+<img src="./screenshots/Screenshot_PocketTools.png" width="30%" />
+<img src="./screenshots/Screenshot_Magnetometer.png" width="30%" />
+<img src="./screenshots/Screenshot_SpiritLevel.png" width="30%" />
+
 </div>
 
 ## Objectives
