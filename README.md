@@ -8,10 +8,11 @@
 
 A collection of various tools and utilities on Android.
 
-
-![Screenshot: PocketTools](./screenshots/Screenshot_PocketTools.png)
-![Screenshot: Magnetometer](./screenshots/Screenshot_Magnetometer.png)
-![Screenshot: Spirit Level](./screenshots/Screenshot_SpiritLevel.png)
+<div align="center">
+    <img src="./screenshots/Screenshot_PocketTools.png" width="30%" />
+    <img src="./screenshots/Screenshot_Magnetometer.png" width="30%" />
+    <img src="./screenshots/Screenshot_SpiritLevel.png" width="30%" />
+</div>
 
 ## Objectives
 
