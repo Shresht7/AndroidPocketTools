@@ -18,15 +18,39 @@ A collection of various tools and utilities on Android.
 
 The app contains several utility screens, including:
 
+- Barometer
 - Counter
 - Flashlight (Torch)
-- Ruler
+- Geolocation
+- Luxmeter
 - Magnetometer
-- Spirit Level
 - Plumb Bob
+- Ruler
+- Sound (Decibel)
+- Spirit Level
 - Tip Calculator
-- A screen to list available device sensors.
-- *and many more planned*
+- WiFi
+
+---
+
+## Installation/Setup Guide
+
+To get a local copy up and running, follow these simple steps.
+
+### Prerequisites
+
+- Android Studio
+- Android SDK configured (API Level 31+)
+- Git
+
+### Installation
+
+1.  Clone the repo
+    ```bash
+    git clone https://github.com/shresht7/PocketTools.git
+    ```
+2.  Open the project in Android Studio.
+3.  Build and run the app on an emulator or a physical device.
 
 ---
 
