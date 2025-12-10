@@ -23,22 +23,30 @@ import com.shresht7.pockettools.ui.screens.wifi.WiFiScreen
  * This composable sets up the routes to all the different screens (tools) in the app.
  * It uses a type-safe navigation pattern with a `NavHost` and a separately created graph.
  *
- * @param navController The [NavHostController] that manages the navigation.
+ * The `AppNavHost` defines two reusable callbacks:
+ * - `onNavigateUp`: A simple lambda that pops the back stack, used by tool screens to navigate back.
+ * - `onNavigateToTool`: A callback passed to the [HomeScreen] to navigate to a selected tool.
+ *
+ * @param navController The [NavHostController] that manages the navigation state and allows
+ *                      for navigating between screens.
  */
 @Composable
 fun AppNavHost(navController: NavHostController) {
+    val onNavigateUp: () -> Unit = { navController.popBackStack() }
+    val onNavigateToTool: (Screen) -> Unit = { screen -> navController.navigate(screen) }
+
     val graph = navController.createGraph(startDestination = Screen.Home) {
-        composable<Screen.Home> { HomeScreen(onNavigateToTool = { screen -> navController.navigate(screen) }) }
-        composable<Screen.Counter> { CounterScreen(onNavigateUp = { navController.popBackStack() }) }
-        composable<Screen.TipCalculator> { TipCalculatorScreen(onNavigateUp = { navController.popBackStack() }) }
-        composable<Screen.Torch> { TorchScreen(onNavigateUp = { navController.popBackStack() }) }
+        composable<Screen.Home> { HomeScreen(onNavigateToTool = onNavigateToTool) }
+        composable<Screen.Counter> { CounterScreen(onNavigateUp = onNavigateUp) }
+        composable<Screen.TipCalculator> { TipCalculatorScreen(onNavigateUp = onNavigateUp) }
+        composable<Screen.Torch> { TorchScreen(onNavigateUp = onNavigateUp) }
         composable<Screen.Ruler> { RulerScreen() }
-        composable<Screen.Magnetometer> { MagnetometerScreen(onNavigateUp = { navController.popBackStack() }) }
-        composable<Screen.SpiritLevel> { SpiritLevelScreen(onNavigateUp = { navController.popBackStack() }) }
-        composable<Screen.PlumbBob> { PlumbBobScreen(onNavigateUp = { navController.popBackStack() }) }
-        composable<Screen.SensorsList> { SensorsListScreen(onNavigateUp = { navController.popBackStack() }) }
-        composable<Screen.WiFi> { WiFiScreen(onNavigateUp = { navController.popBackStack() }) }
-        composable<Screen.Sound> { SoundScreen(onNavigateUp = { navController.popBackStack() }) }
+        composable<Screen.Magnetometer> { MagnetometerScreen(onNavigateUp = onNavigateUp) }
+        composable<Screen.SpiritLevel> { SpiritLevelScreen(onNavigateUp = onNavigateUp) }
+        composable<Screen.PlumbBob> { PlumbBobScreen(onNavigateUp = onNavigateUp) }
+        composable<Screen.SensorsList> { SensorsListScreen(onNavigateUp = onNavigateUp) }
+        composable<Screen.WiFi> { WiFiScreen(onNavigateUp = onNavigateUp) }
+        composable<Screen.Sound> { SoundScreen(onNavigateUp = onNavigateUp) }
     }
     NavHost(
         navController = navController,
